@@ -67,6 +67,13 @@ function termPrint(html, isCmd = false) {
 function termLoadScenario(scen) {
   MOCK_CLUSTER.scenario = scen;
   termExec('clear');
+  if (scen === 'scen_psa') {
+    termPrint('<span style="color:var(--yellow);font-weight:700">🚨 CHALLENGE ACTIVATED: Kyverno / PSA Restricted Admission Rejection</span>');
+    termPrint('Symptom: Developer tried deploying payment-service with runAsUser: 0 and privileged: true into prod-secure namespace.');
+    termPrint('Try: <code>kubectl get events -n prod-secure</code> or <code>kubectl apply -f deploy-payment.yaml</code>');
+  } else 
+  MOCK_CLUSTER.scenario = scen;
+  termExec('clear');
   if (scen === 'scen_crash') {
     termPrint('<span style="color:var(--yellow);font-weight:700">🚨 CHALLENGE ACTIVATED: web-prod pod CrashLoopBackOff</span>');
     termPrint('Symptom: Developers reported payment webhook failing. Check pods and logs to find why!');

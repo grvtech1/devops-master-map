@@ -171,6 +171,9 @@
         <label style="font-size:13px;font-weight:700">🎯 Challenge Topic:
           <select class="voice-topic-sel" id="voiceTopicSel" onchange="loadVoiceTopic(this.value)">
             <option value="irsa">IRSA vs EKS Pod Identity (AWS Auth)</option>
+            <option value="cost5pillars">Mid-Level Production Setup: 5 Pillars & FinOps</option>
+            <option value="psasec">PSA Restricted & Kyverno (Runtime Security)</option>
+            <option value="entrycmd">Docker ENTRYPOINT vs CMD & Multi-Stage</option>
             <option value="karpenter">Cluster Autoscaler vs Karpenter (Scaling)</option>
             <option value="cilium">kube-proxy iptables vs Cilium eBPF (Networking)</option>
             <option value="container">Container vs Virtual Machine (Linux)</option>
@@ -283,6 +286,7 @@ PAYLOAD: GET /orders HTTP/2
           <option value="scen_502">🚨 Scenario 2: Fix 502 Bad Gateway Outage</option>
           <option value="scen_oom">🚨 Scenario 3: OOMKilled 137 Heap Exhaustion</option>
           <option value="scen_disk">🚨 Scenario 4: "Disk Full" Deleted File Hunt</option>
+          <option value="scen_psa">🚨 Scenario 5: Kyverno / PSA Restricted Admission Denied</option>
         </select>
       </div>
       <div class="term-quick-btns">

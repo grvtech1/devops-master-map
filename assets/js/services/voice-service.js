@@ -1,5 +1,17 @@
 /* ===== AUDIO TEACH-BACK LOGIC ===== */
 const VOICE_TOPICS = {
+  cost5pillars: {
+    prompt: '"Interviewer asks: How would you architect an ideal production setup for a mid-level company balancing cost, security, and reliability?"',
+    keywords: ['5 Pillars', 'FinOps', 'Dual NodePool', 'Karpenter', 'Spot', 'Graviton', 'Pod Identity', 'Kyverno', 'Canary', 'Prometheus', 'PITR']
+  },
+  psasec: {
+    prompt: '"Interviewer asks: Explain how Pod Security Standards (PSA) and Kyverno prevent container breakout attacks at runtime."',
+    keywords: ['PSA', 'Restricted', 'Kyverno', 'runAsNonRoot', 'privileged', 'readOnlyRootFilesystem', 'drop ALL', 'Capabilities', 'Admission Controller']
+  },
+  entrycmd: {
+    prompt: '"Interviewer asks: What is the exact difference between ENTRYPOINT and CMD in Docker, and how do they map to Kubernetes?"',
+    keywords: ['ENTRYPOINT', 'CMD', 'PID 1', 'command', 'args', 'Exec Form', 'Override', 'Signal Forwarding']
+  },
   irsa: {
     prompt: '"Interviewer asks: Why did AWS introduce EKS Pod Identity over IRSA, and how does it work?"',
     keywords: ['OIDC', 'STS', 'Pod Identity', 'DaemonSet', 'IAM Role', 'Trust Policy', 'Token', 'AssumeRole']
