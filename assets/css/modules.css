@@ -1,0 +1,247 @@
+/* WAR-ROOM INCIDENTS */
+.incident-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+.incident-card {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--red);
+  border-radius: 10px;
+  padding: 16px;
+  transition: 0.2s;
+}
+.incident-card:hover { border-color: var(--accent); }
+.incident-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.incident-badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.incident-badge.sev1 { background: rgba(239,68,68,0.2); color: var(--red); border: 1px solid var(--red); }
+.incident-badge.sev2 { background: rgba(245,158,11,0.2); color: var(--yellow); border: 1px solid var(--yellow); }
+.incident-badge.sev3 { background: rgba(6,182,212,0.2); color: var(--cyan); border: 1px solid var(--cyan); }
+.incident-title { font-size: 15px; font-weight: 700; color: var(--head); }
+.incident-grid-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.incident-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+}
+.incident-box b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
+.incident-box.sym b { color: var(--yellow); }
+.incident-box.cause b { color: var(--red); }
+.incident-box.fix b { color: var(--green); }
+.incident-box.lesson b { color: var(--cyan); }
+
+/* FRONTIER VS FOUNDATION MATRIX */
+.frontier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.frontier-card {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+}
+.frontier-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.frontier-title { font-size: 14px; font-weight: 700; color: var(--head); }
+.frontier-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 6px 0;
+  font-size: 12.5px;
+}
+.frontier-tag {
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.frontier-tag.old { background: rgba(245,158,11,0.15); color: var(--yellow); border: 1px solid var(--yellow); }
+.frontier-tag.new { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid var(--green); }
+
+/* MODALS */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+}
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.modal-head h3 { font-size: 18px; color: var(--head); }
+.modal-close { background: none; border: none; font-size: 20px; color: var(--sub); cursor: pointer; }
+.modal-body { font-size: 13.5px; line-height: 1.6; color: var(--text); }
+.modal-body textarea {
+  width: 100%;
+  min-height: 110px;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  font-family: inherit;
+  color: var(--text);
+  font-size: 12px;
+  margin: 8px 0;
+}
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+@media(max-width:780px){
+  .incident-grid-details { grid-template-columns: 1fr; }
+}
+
+
+/* ===== AUDIO TEACH-BACK & INTERACTIVE NETWORK PACKET TRACER ===== */
+
+
+
+/* VOICE TEACH-BACK SIMULATOR */
+.voice-box {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 14px;
+}
+.voice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.voice-topic-sel {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.voice-timer-badge {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--yellow);
+  background: rgba(245,158,11,0.15);
+  border: 1px solid var(--yellow);
+  border-radius: 20px;
+  padding: 4px 14px;
+}
+.voice-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+.mic-btn {
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 9px 20px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
+  font-family: inherit;
+}
+.mic-btn:hover { opacity: 0.9; transform: scale(1.02); }
+.mic-btn.recording {
+  background: var(--red);
+  animation: pulse-red 1.2s infinite;
+}
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.7); }
+  70% { box-shadow: 0 0 0 12px rgba(239,68,68,0); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+}
+.voice-transcript {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 80px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 10px 0;
+}
+.keyword-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+.kw-chip {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--sub);
+  transition: 0.25s;
+}
+.kw-chip.hit {
+  background: rgba(34,197,94,0.18);
+  border-color: var(--green);
+  color: var(--green);
+  transform: scale(1.05);
+}
+.voice-verdict {
+  display: none;
+  background: rgba(124,58,237,0.1);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  font-size: 13px;
+  margin-top: 10px;
+}

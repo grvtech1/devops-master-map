@@ -1,0 +1,16 @@
+# System & OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files & logs
+*.log
+tmp/
+temp/
+scratch/
+.idea/
+.vscode/
+
+# Build artifacts
+dist/
+build/

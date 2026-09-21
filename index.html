@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DevOps Master Map — Connected Mental Model, Samjho Style</title>
+  
+  <!-- Modular Design System -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/modules.css">
+  <link rel="stylesheet" href="assets/css/terminal.css">
+  <link rel="stylesheet" href="assets/css/tracer.css">
+</head>
+<body>
+<button id="menuBtn" type="button" aria-controls="side" aria-expanded="false" onclick="toggleMenu()">☰ Chapters</button>
+<button id="tog" type="button" aria-label="Switch color theme" onclick="tog()">☀️ Light</button>
+<div id="backdrop" onclick="toggleMenu(false)"></div>
+<nav id="side">
+  <div class="brand">🗺️ Master Map</div>
+  <input id="filt" aria-label="Search chapters" placeholder="🔍 kuch bhi dhundo — topic, tool, gotcha, command..." oninput="filterNav()" onkeydown="filterKey(event)"><div id="filtcount"></div>
+  <div id="navlist"></div>
+</nav>
+<main>
+  <div class="hero">
+    <h1>🗺️ DevOps + Kubernetes Master Map</h1>
+    <p>Poora connected mental model — har chapter me: ❌ galat assumption pehle → 🏠 analogy → ⚙️ mechanism → ❌✅ → 🏭 dono projects → 🧠 quiz → 🎯 interview line. Chapter ✓ nahi — capability: quiz = ◔ Understood, recall = ● , lab = ◆ , spaced drill = ★ Interview ready.</p>
+    <div class="progress-wrap">
+      <div class="pbar"><div class="pfill" id="pfill"></div></div>
+      <div class="pstats"><span id="pdone">○ 46</span><span id="pxp">0 XP</span></div>
+    </div>
+        <div class="hero-actions">
+      <button class="primary" id="continueBtn" type="button" onclick="continueLearning()">Start Chapter 1</button>
+      <button class="secondary" type="button" onclick="go('spine')">Pehle 5-stage spine samjho</button>
+      <button class="secondary" type="button" onclick="go('terminal-sandbox')" style="border-color:var(--cyan);color:var(--cyan)">💻 CLI Sandbox</button>
+      <button class="secondary" type="button" onclick="go('warroom')" style="border-color:var(--red);color:var(--red)">🚨 War-Room (502, OOM)</button>
+      <button class="secondary" type="button" onclick="go('frontier')" style="border-color:var(--green);color:var(--green)">🔄 Foundation vs Frontier</button>
+      <button class="secondary" type="button" onclick="go('voice-teachback')" style="border-color:var(--pink);color:var(--pink)">🎙️ Voice Teach-Back</button>
+      <button class="secondary" type="button" onclick="go('network-tracer')" style="border-color:var(--cyan);color:var(--cyan)">🌐 Packet Flow Tracer</button>
+      <button class="secondary" type="button" onclick="openDiagModal()" style="border-color:var(--pink);color:var(--pink)">🎯 Placement Quiz</button>
+      <button class="secondary" type="button" onclick="openSyncModal()">💾 Backup / Sync</button>
+    </div>
+    <div class="hero-tools"><label>🧭 Track: <select id="trackSel" onchange="setTrack(this.value)"></select></label><button class="secondary" type="button" id="viewBtn" onclick="toggleView()">👶 Beginner view</button><button class="secondary" type="button" onclick="startDrill()">📅 Aaj due: <b id="dueN">0</b> sawaal — drill</button></div>
+    <div class="trackdesc" id="trackDesc"></div>
+    <div class="ladder-legend"><b>Mastery ladder (chapter ✓ nahi, capability):</b> ○ Not started → ◔ Understood (quiz sab sahi) → ● Can recall (notes band karke bola) → ◆ Can apply (lab ka expected output mila) → ★ Interview ready (spaced drill me har sawaal 2+ baar sahi, din ke gap ke saath). Har step +25 XP. ▶ Live flows (8 chapters): Deployment, Scheduler, Service, N-S request, CI→CD, PVC/EBS, HPA+CA, Terraform — dekho, predict karo, todo.</div>
+  </div>
+
+  <section class="spine" id="spine">
+    <h3>Ek baar me pehle sirf ye 5-stage story pakdo</h3>
+    <p>Details baad me. Pehle system ki backbone: artifact banao, desired state likho, cluster se reconcile karao, traffic/data jodo, phir observe aur recover karo.</p>
+    <div class="spine-grid">
+      <button class="spine-step" type="button" onclick="go('chdocker')"><strong>1. PACKAGE</strong><span>Code → image → immutable artifact</span></button>
+      <button class="spine-step" type="button" onclick="go('ch13')"><strong>2. DECLARE</strong><span>CI validates; Git desired version records</span></button>
+      <button class="spine-step" type="button" onclick="go('ch3')"><strong>3. RECONCILE</strong><span>API → controllers → scheduler → kubelet</span></button>
+      <button class="spine-step" type="button" onclick="go('ch8')"><strong>4. CONNECT</strong><span>CNI + Service + Gateway + CSI</span></button>
+      <button class="spine-step" type="button" onclick="go('chobs')"><strong>5. OPERATE</strong><span>Metrics → alert → evidence → recovery</span></button>
+    </div>
+    <div class="pass-note"><b>Learning rule:</b> first pass me bas story aur “why” padho. Second pass me mechanism. Third pass me quiz bina notes. Ek sitting me 24,000 words finish karna target nahi; connected recall target hai. <b>v2:</b> har chapter ab 3 layers me — <b>Level 1 (samjho)</b> khula, <b>Level 2 (mechanism)</b> aur <b>Level 3 (production/interview)</b> click pe; beech me ▶ <b>Live flow</b> (8 flagship simulators: predict → play → 💥 break → fix) + 🧪 lab. Pehle pass me sirf Level 1 + quiz; doosre me lab + Level 2; teesre me Level 3 + drill. Upar se track chuno (naye ho to 🌱).</div>
+  </section>
+
+  <div class="mapbox">
+    <h3>🧠 Reference map — spine samajhne ke baad detail connect karne ke liye</h3>
+    <details class="reference-details">
+    <summary>Detailed system map kholo (46 chapters, connected)</summary>
+    <div class="mrow">
+      <div class="mnode" onclick="go('ch1')">🧠 Mental Model</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch13')">🧑‍💻 Developer</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('chgit')">🌿 Git/GitHub</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch13')">🔨 CI build</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch13')">📦 Registry (ECR)</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch14')">📖 GitOps repo</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch15')">⎈ Helm render</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch14')">🔄 ArgoCD</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('chflow')">🚚 Push→Pod Flow</div>
+    </div>
+    <div class="mrow">
+      <div class="mnode" onclick="go('ch3')">🏛️ API Server</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('chapi')">🚪 Request pipeline</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch4')">🔁 Controllers</div><span class="marr">+</span>
+      <div class="mnode" onclick="go('ch7')">🎯 Scheduler</div><span class="marr">+</span>
+      <div class="mnode" onclick="go('ch3')">🗄️ etcd</div>
+    </div>
+    <div class="mrow">
+      <div class="mnode" onclick="go('ch5')">🚀 Deployment → RS</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch3')">🖥️ Node: kubelet → CRI → runtime</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch2')">📦 Pod (namespaces+cgroups)</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chlinux')">🐧 Linux Ops</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chdocker')">🐳 Docker</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chyaml')">📝 YAML</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('ch7b')">📏 Resources (req/lim/QoS)</div>
+    </div>
+    <div class="mrow">
+      <div class="mnode" onclick="go('ch8')">🌐 CNI network</div><span class="marr">·</span>
+      <div class="mnode" onclick="go('ch9')">🔍 Service/DNS</div><span class="marr">·</span>
+      <div class="mnode" onclick="go('ch6')">💾 Storage CSI</div><span class="marr">·</span>
+      <div class="mnode" onclick="go('ch10')">🛎️ Ingress</div><span class="marr">·</span>
+      <div class="mnode" onclick="go('ch16')">🛡️ Drain/PDB</div>
+    </div>
+    <div class="mrow">
+      <div class="mnode" onclick="go('chcfg')">🎛️ ConfigMap/Secret</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chprobe')">💓 Probes</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chhpa')">📈 HPA</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chasync')">📨 Async/Campaign</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chscale')">🎇 Isolation/Scale</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chrbac')">🔑 RBAC</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chnetpol')">🧱 NetworkPolicy</div>
+    </div>
+    <div class="mrow">
+      <div class="mnode" onclick="go('chns')">🏷️ NS/Labels</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chwl')">🧰 Workload Types</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chvpa')">📐 VPA/In-place</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('ch12')">☁️ AWS VPC</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chtf')">🏗️ Terraform</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chjoin')">🎫 Cert SANs & Node Join</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chinfra')">☁️ ECS vs EKS</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('cheks')">🟠 EKS Deep-dive</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chans')">🛠️ Ansible</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chnode')">☁️ CA/Karpenter</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chseccon')">🔒 SecurityContext</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chctx')">🎛️ kubectl Context</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chprod')">🩹 Production Wisdom</div>
+      <span class="marr">·</span>
+      <div class="mnode" onclick="go('chscan')">🔬 CI Security Scans</div>
+    </div>
+    <div class="mrow">
+      <div class="mnode" onclick="go('ch11')">🧭 Full Request Flow (N-S + E-W)</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('chobs')">📊 Observability (RED/SLO)</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch17')">🚑 Troubleshooting Playbooks</div><span class="marr">→</span>
+      <div class="mnode" onclick="go('ch18')">🎤 Interview Framework</div>
+    </div>
+    <div class="mapnote">5 yaad rakhne wali lines: Controllers RECONCILE · Scheduler PLACES · kubelet RUNS · CNI CONNECTS · Service DISCOVERS — aur aakhri line: METRICS dekho → PLAYBOOK chalao → EXPLAIN karo</div>
+    </details>
+  </div>
+
+  
+  
+  <!-- ================= AUDIO TEACH-BACK SIMULATOR ================= -->
+  <div class="mapbox" id="voice-teachback">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <h3 style="margin:0;font-size:16px;color:var(--pink)">🎙️ Voice "Teach-Back" Interview Defense Challenge</h3>
+      <span style="font-size:11px;background:rgba(236,72,153,0.15);color:var(--pink);border:1px solid var(--pink);border-radius:12px;padding:2px 8px;font-weight:700">Senior Articulation</span>
+    </div>
+    <p style="font-size:13px;color:var(--sub);margin-bottom:12px">
+      Dimaag me samajh hona aur interviewer ke samne <b>60 second me zabaan se bolna</b> do alag cheezein hain.
+      Topic chuno, mic on karo aur bolo — AI/NLP aapke keywords detect karega aur seniority score dega!
+    </p>
+
+    <div class="voice-box">
+      <div class="voice-header">
+        <label style="font-size:13px;font-weight:700">🎯 Challenge Topic:
+          <select class="voice-topic-sel" id="voiceTopicSel" onchange="loadVoiceTopic(this.value)">
+            <option value="irsa">IRSA vs EKS Pod Identity (AWS Auth)</option>
+            <option value="karpenter">Cluster Autoscaler vs Karpenter (Scaling)</option>
+            <option value="cilium">kube-proxy iptables vs Cilium eBPF (Networking)</option>
+            <option value="container">Container vs Virtual Machine (Linux)</option>
+            <option value="502bug">The 502 Rolling Update Outage (Production Triage)</option>
+          </select>
+        </label>
+        <span class="voice-timer-badge" id="voiceTimer">60s</span>
+      </div>
+
+      <p id="voiceTopicPrompt" style="font-size:13px;color:var(--cyan);font-weight:600;margin-bottom:10px">
+        "Interviewer asks: Why did AWS introduce EKS Pod Identity over IRSA, and how does it work?"
+      </p>
+
+      <div class="voice-controls">
+        <button class="mic-btn" id="micBtn" onclick="toggleVoiceRecording()">
+          <span id="micIco">🎙️</span> <span id="micLabel">Start 60s Teach-Back</span>
+        </button>
+        <button class="secondary" style="font-size:12px;padding:6px 12px" onclick="resetVoice()">↺ Reset</button>
+        <span style="font-size:12px;color:var(--sub);margin-left:auto">Speech-to-Text Powered (Chrome, Edge & Safari)</span>
+      </div>
+
+      <div class="voice-transcript" id="voiceTranscript" contenteditable="true" placeholder="Aapki speech yahan real-time transcribe hogi (ya aap khud bhi type/paste karke test kar sakte hain)..."></div>
+
+      <div style="font-size:12px;font-weight:700;color:var(--head);margin-top:10px">
+        🔍 Senior Keyword Signals (Bolo aur green hote dekho):
+      </div>
+      <div class="keyword-pool" id="voiceKeywords"></div>
+
+      <div class="voice-verdict" id="voiceVerdict"></div>
+    </div>
+  </div>
+
+  <!-- ================= INTERACTIVE NETWORK PACKET TRACER ================= -->
+  <div class="mapbox" id="network-tracer">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <h3 style="margin:0;font-size:16px;color:var(--cyan)">🌐 Interactive Network Packet Tracer (North-South & East-West)</h3>
+      <span style="font-size:11px;background:rgba(6,182,212,0.15);color:var(--cyan);border:1px solid var(--cyan);border-radius:12px;padding:2px 8px;font-weight:700">Packet Journey</span>
+    </div>
+    <p style="font-size:13px;color:var(--sub);margin-bottom:12px">
+      Ek HTTP request browser se nikal kar Kubernetes Pod aur Database tak kaise pahunchti hai? 
+      <b>"Send Packet"</b> click karein aur har layer par IP translation, NAT, aur TLS termination ka live inspection dekhein.
+    </p>
+
+    <div class="tracer-wrap">
+      <div class="tracer-controls">
+        <button class="primary" onclick="tracerSendPacket()">▶ Send Packet (Auto Flow)</button>
+        <button class="secondary" onclick="tracerStepNext()">⏭ Next Hop</button>
+        <button class="secondary" onclick="tracerReset()">↺ Reset</button>
+        <label style="font-size:12.5px;color:var(--sub);margin-left:auto;display:flex;align-items:center;gap:6px">
+          Architecture Mode:
+          <select id="tracerMode" style="background:#161b22;color:#fff;border:1px solid #30363d;border-radius:6px;padding:4px 8px" onchange="tracerChangeMode(this.value)">
+            <option value="vpc_cni">🚀 AWS VPC CNI (Target-Type: IP - 1 Hop)</option>
+            <option value="overlay">🐢 Classic Overlay / NodePort (Double Hop)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="tracer-stage-track" id="tracerTrack">
+        <div class="tracer-node active" id="tn-0">💻 Client Browser<br><small>142.250.190.4</small></div>
+        <div class="tracer-node" id="tn-1">🌐 AWS Route53<br><small>DNS Resolve</small></div>
+        <div class="tracer-node" id="tn-2">⚖️ AWS ALB<br><small>TLS / Port 443</small></div>
+        <div class="tracer-node" id="tn-3">🛡️ Target Group<br><small>Health Check</small></div>
+        <div class="tracer-node" id="tn-4">📦 K8s Pod (App)<br><small>10.0.3.15:8080</small></div>
+        <div class="tracer-node" id="tn-5">🗄️ AWS RDS (Postgres)<br><small>10.0.5.99:5432</small></div>
+      </div>
+
+      <div class="tracer-info-card" id="tracerCard">
+        <div>
+          <b>📍 Current Hop Action</b>
+          <div id="tracerAction" style="font-size:13.5px;color:var(--head);font-weight:600">
+            Client ne browser me type kiya: <code>https://app.billfree.in/orders</code>
+          </div>
+          <div id="tracerDesc" style="font-size:12px;color:var(--sub);margin-top:4px">
+            Packet TCP SYN initiate karne ke liye tayyar hai.
+          </div>
+        </div>
+        <div>
+          <b>🔬 Real-Time Packet Header Inspector</b>
+          <div class="tracer-header-preview" id="tracerHeader">
+SRC: 142.250.190.4:54210
+DST: 52.95.120.30:443 (ALB Public IP)
+PROTO: TCP / TLS 1.3
+PAYLOAD: GET /orders HTTP/2
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= IN-BROWSER TERMINAL SANDBOX ================= -->
+  <div class="mapbox" id="terminal-sandbox">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <h3 style="margin:0;font-size:16px;color:var(--cyan)">💻 In-Browser DevOps CLI Sandbox (Zero Cloud Bill)</h3>
+      <span style="font-size:11px;background:rgba(6,182,212,0.15);color:var(--cyan);border:1px solid var(--cyan);border-radius:12px;padding:2px 8px;font-weight:700">Interactive</span>
+    </div>
+    <p style="font-size:13px;color:var(--sub);margin-bottom:12px">
+      Bina AWS account ya heavy laptop ke real terminal commands chala kar dekho. Output real Kubernetes & Linux environment jaisa hai.
+      Neeche quick buttons click karo ya khud terminal me type karke <kbd>Enter</kbd> dabao.
+    </p>
+
+    <div class="term-container">
+      <div class="term-header">
+        <span class="term-dot r"></span>
+        <span class="term-dot y"></span>
+        <span class="term-dot g"></span>
+        <span class="term-title">bash — production-cluster-node-01 (us-east-1)</span>
+        <select class="term-scenario-sel" id="termScenarioSel" onchange="termLoadScenario(this.value)">
+          <option value="free">⚡ Free Practice Mode</option>
+          <option value="scen_crash">🚨 Scenario 1: Debug CrashLoopBackOff Pod</option>
+          <option value="scen_502">🚨 Scenario 2: Fix 502 Bad Gateway Outage</option>
+          <option value="scen_oom">🚨 Scenario 3: OOMKilled 137 Heap Exhaustion</option>
+          <option value="scen_disk">🚨 Scenario 4: "Disk Full" Deleted File Hunt</option>
+        </select>
+      </div>
+      <div class="term-quick-btns">
+        <button class="term-quick-btn" onclick="termRunCmd('kubectl get pods -o wide')">kubectl get pods</button>
+        <button class="term-quick-btn" onclick="termRunCmd('kubectl describe pod web-prod-7f9a')">describe web-prod</button>
+        <button class="term-quick-btn" onclick="termRunCmd('kubectl logs web-prod-7f9a')">logs web-prod</button>
+        <button class="term-quick-btn" onclick="termRunCmd('kubectl get nodes')">kubectl get nodes</button>
+        <button class="term-quick-btn" onclick="termRunCmd('uptime')">uptime (load)</button>
+        <button class="term-quick-btn" onclick="termRunCmd('free -h')">free -h (RAM)</button>
+        <button class="term-quick-btn" onclick="termRunCmd('df -h && df -i')">df -h & inodes</button>
+        <button class="term-quick-btn" onclick="termRunCmd('lsof +L1')">lsof +L1 (deleted open)</button>
+        <button class="term-quick-btn" onclick="termRunCmd('curl -I http://order-service')">curl 502 test</button>
+        <button class="term-quick-btn" onclick="termRunCmd('clear')">clear</button>
+      </div>
+      <div class="term-body" id="termOutput">
+<span style="color:#58a6ff;font-weight:700">Welcome to DevOps Master Sandbox v2.0 (Ubuntu 22.04 LTS / K8s v1.30.2)</span>
+Type <span style="color:var(--yellow)">'help'</span> for list of commands, or click any quick-run button above.
+Current cluster context: <span style="color:var(--green)">arn:aws:eks:us-east-1:123456789012:cluster/billfree-prod</span>
+      </div>
+      <div class="term-input-row">
+        <span class="term-prompt">admin@k8s-node:~$</span>
+        <input type="text" class="term-input" id="termInput" placeholder="Try: kubectl get pods, uptime, free -h..." autocomplete="off" spellcheck="false" onkeydown="termHandleKey(event)">
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PRODUCTION WAR-ROOM POST-MORTEM LIBRARY ================= -->
+  <div class="mapbox" id="warroom">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <h3 style="margin:0;font-size:16px;color:var(--red)">🚨 Production War-Room — 5 Real Incidents & Post-Mortems</h3>
+      <span style="font-size:11px;background:rgba(239,68,68,0.15);color:var(--red);border:1px solid var(--red);border-radius:12px;padding:2px 8px;font-weight:700">Must Know for 3+ YOE</span>
+    </div>
+    <p style="font-size:13px;color:var(--sub);margin-bottom:12px">
+      Real companies me hone wale 5 sabse common outages: symptom kya dikha, investigation kahan hui, root cause kya nikla, aur permanent fix kya tha.
+    </p>
+
+    <div class="incident-grid">
+      <!-- Incident 1 -->
+      <div class="incident-card">
+        <div class="incident-header">
+          <span class="incident-badge sev1">SEV-1 OUTAGE</span>
+          <span class="incident-title">1. The 502 Bad Gateway Rolling Update Storm</span>
+          <span style="margin-left:auto;font-size:12px;color:var(--sub)">Downtime: 18 min</span>
+        </div>
+        <p style="font-size:13px;color:var(--text)">
+          Naya application version deploy karte hi users ko 15-20 second tak <b>HTTP 502 Bad Gateway</b> errors aane lage, jabki purane pods healthy the.
+        </p>
+        <div class="incident-grid-details">
+          <div class="incident-box sym">
+            <b>🔍 Symptom & Investigation</b>
+            ALB access logs me 502 spike. <code>kubectl rollout status</code> ne bola deployment successful, par ALB target group me naye pods unready the aur purane pods abruptly terminate ho gaye.
+          </div>
+          <div class="incident-box cause">
+            <b>💥 Asli Root Cause</b>
+            1) <code>readinessProbe</code> missing tha — Kube-proxy ne pod ko start hote hi (0 sec me) endpoint bana diya jabki app 6 sec leti thi start hone me.<br>
+            2) <code>preStop</code> hook nahi tha — Purane pod ko SIGTERM milte hi socket band ho gaya, par ALB ke paas in-flight requests atki reh gayi.
+          </div>
+          <div class="incident-box fix">
+            <b>🛠️ Permanent Fix (YAML)</b>
+            <code style="display:block;white-space:pre;font-size:11px;background:#0d1117;padding:6px;border-radius:6px;margin-top:4px">lifecycle:
+  preStop:
+    exec: { command: ["sh", "-c", "sleep 10"] }
+readinessProbe:
+  httpGet: { path: /healthz, port: 8080 }
+  initialDelaySeconds: 5</code>
+          </div>
+          <div class="incident-box lesson">
+            <b>🎯 Interview Defense Line</b>
+            "Zero-downtime rolling updates require both a tuned readinessProbe so traffic isn't routed before warm-up, and a preStop sleep hook to drain in-flight connections before SIGKILL."
+          </div>
+        </div>
+      </div>
+
+      <!-- Incident 2 -->
+      <div class="incident-card">
+        <div class="incident-header">
+          <span class="incident-badge sev2">SEV-2 CRASH</span>
+          <span class="incident-title">2. OOMKilled 137 JVM Heap Memory Explosion</span>
+          <span style="margin-left:auto;font-size:12px;color:var(--sub)">Intermittent CrashLoop</span>
+        </div>
+        <p style="font-size:13px;color:var(--text)">
+          Java Spring-Boot application pod har 25 minute me crash ho jata tha. <code>kubectl get pods</code> me <b>Exit Code 137</b> dikhta tha.
+        </p>
+        <div class="incident-grid-details">
+          <div class="incident-box sym">
+            <b>🔍 Symptom & Investigation</b>
+            <code>dmesg -T | grep -i oom</code> me aaya: <i>"Memory cgroup out of memory: Killed process java"</i>. Java logs me koi <code>OutOfMemoryError</code> exception nahi tha!
+          </div>
+          <div class="incident-box cause">
+            <b>💥 Asli Root Cause</b>
+            Java developer ne <code>-Xmx1024m</code> set kiya tha aur K8s container limit <code>1024Mi</code> thi. JVM sirf Heap nahi, <b>Metaspace + Thread stacks + GC overhead (~300MB extra)</b> bhi leta hai. Total 1350MB hua toh Linux kernel ne bahar se SIGKILL maar diya!
+          </div>
+          <div class="incident-box fix">
+            <b>🛠️ Permanent Fix</b>
+            Hardcoded <code>-Xmx</code> hatakar container-aware flag lagaya:<br>
+            <code>-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0</code><br>
+            Container memory limit ko <code>1.5Gi</code> kiya taaki non-heap memory ke liye headroom bache.
+          </div>
+          <div class="incident-box lesson">
+            <b>🎯 Interview Defense Line</b>
+            "Exit code 137 without JVM stack traces indicates Linux kernel cgroup OOMKill. Always set MaxRAMPercentage to 70-75% leaving headroom for thread stacks and native buffers."
+          </div>
+        </div>
+      </div>
+
+      <!-- Incident 3 -->
+      <div class="incident-card">
+        <div class="incident-header">
+          <span class="incident-badge sev1">SEV-1 LATENCY</span>
+          <span class="incident-title">3. CoreDNS ndots:5 External API 5-Second Latency Spike</span>
+          <span style="margin-left:auto;font-size:12px;color:var(--sub)">High Scale Outage</span>
+        </div>
+        <p style="font-size:13px;color:var(--text)">
+          Peak diwali sale ke waqt Payment Gateway (Stripe / Razorpay) ke calls achanak 5 second me timeout hone lage.
+        </p>
+        <div class="incident-grid-details">
+          <div class="incident-box sym">
+            <b>🔍 Symptom & Investigation</b>
+            Pod CPU & RAM normal the. Lekin CoreDNS ke pods par CPU 100% pahunch gaya tha aur packet drop ho rahe the. <code>tcpdump port 53</code> me lakho unwanted lookups dikhe.
+          </div>
+          <div class="incident-box cause">
+            <b>💥 Asli Root Cause</b>
+            K8s default <code>/etc/resolv.conf</code> me <b>ndots:5</b> hota hai. <code>api.razorpay.com</code> me 2 dots the (&lt;5). Isliye K8s ne pehle 4 internal search domains query kiye:
+            <code>api.razorpay.com.default.svc.cluster.local</code> ➔ CoreDNS exhausted!
+          </div>
+          <div class="incident-box fix">
+            <b>🛠️ Permanent Fix</b>
+            Pod spec me FQDN use kiya (trailing dot: <code>api.razorpay.com.</code>) ya pod <code>dnsConfig</code> me ndots ko 2 kiya:
+            <code style="display:block;white-space:pre;font-size:11px;background:#0d1117;padding:6px;border-radius:6px;margin-top:4px">dnsConfig:
+  options:
+    - name: ndots
+      value: "2"</code>
+          </div>
+          <div class="incident-box lesson">
+            <b>🎯 Interview Defense Line</b>
+            "Kubernetes ndots:5 default causes severe DNS amplification for external domains. We mitigate this using NodeLocal DNSCache, appending trailing dots, or tuning ndots:2 in high-throughput workloads."
+          </div>
+        </div>
+      </div>
+
+      <!-- Incident 4 -->
+      <div class="incident-card">
+        <div class="incident-header">
+          <span class="incident-badge sev3">BILL SHOCK</span>
+          <span class="incident-title">4. Silent $3,500 AWS Bill Explosion (NAT Gateway & Orphan EBS)</span>
+          <span style="margin-left:auto;font-size:12px;color:var(--sub)">Financial Bleeding</span>
+        </div>
+        <p style="font-size:13px;color:var(--text)">
+          Traffic growth sirf 10% hua, par AWS monthly billing statement me <b>$3,500 extra charges</b> aaye.
+        </p>
+        <div class="incident-grid-details">
+          <div class="incident-box sym">
+            <b>🔍 Symptom & Investigation</b>
+            AWS Cost Explorer me do line items explode hue: 1) <i>EC2-Other: NatGateway-Bytes</i> aur 2) <i>EBS:VolumeUsage.gp2</i>.
+          </div>
+          <div class="incident-box cause">
+            <b>💥 Asli Root Cause</b>
+            1) Private worker nodes ECR / S3 se gigabytes of docker images pull kar rahe the via <b>NAT Gateway ($0.045/GB)</b> bina VPC Gateway Endpoint ke.<br>
+            2) StatefulSet pods delete hue par unke <b>EBS volumes (PV) "Available" state me unattached baithe</b> the aur AWS unka bill roz charge kar raha tha!
+          </div>
+          <div class="incident-box fix">
+            <b>🛠️ Permanent Fix</b>
+            1) Free <b>S3 Gateway Endpoint</b> add kiya (NAT data transfer $0 ho gaya).<br>
+            2) Automated AWS Lambda / bash cleanup script lagaya unattached EBS volumes terminate karne ke liye.
+          </div>
+          <div class="incident-box lesson">
+            <b>🎯 Interview Defense Line</b>
+            "NAT Gateway data processing is a classic hidden AWS cost trap. Enabling free S3 and ECR VPC Endpoints eliminated cross-NAT image pull costs, and automated EBS orphan cleanup saves thousands monthly."
+          </div>
+        </div>
+      </div>
+
+      <!-- Incident 5 -->
+      <div class="incident-card">
+        <div class="incident-header">
+          <span class="incident-badge sev2">DAY-2 OPS</span>
+          <span class="incident-title">5. Zero-Downtime EKS Upgrade Playbook (1.28 ➔ 1.30)</span>
+          <span style="margin-left:auto;font-size:12px;color:var(--sub)">Production Hardening</span>
+        </div>
+        <p style="font-size:13px;color:var(--text)">
+          Production Kubernetes cluster ko bina customer outage aur bina 1 second ke downtime ke safely upgrade karne ka standard enterprise SOP.
+        </p>
+        <div class="incident-grid-details">
+          <div class="incident-box sym">
+            <b>📋 Pre-Flight Checks</b>
+            1) <code>kubent</code> ya <code>pluto</code> chalao deprecated APIs detect karne ke liye.<br>
+            2) Har critical deployment me <b>PodDisruptionBudget (PDB)</b> verify karo (minAvailable &ge; 1).
+          </div>
+          <div class="incident-box cause">
+            <b>🔄 Sequence of Upgrade</b>
+            Hamesha isi order me upgrade hota hai:<br>
+            <b>Add-ons pehle</b> (VPC-CNI ➔ CoreDNS ➔ kube-proxy) ➔ <b>EKS Control Plane</b> ➔ <b>Worker Node Groups</b>. Kabhi ulta nahi!
+          </div>
+          <div class="incident-box fix">
+            <b>🛠️ Node Rolling Replacement</b>
+            Naya node group launch karo with new AMI. Purane nodes ko gracefully drain karo:<br>
+            <code>kubectl drain &lt;node&gt; --ignore-daemonsets --delete-emptydir-data</code><br>
+            Traffic naye nodes par shift hoga, phir purana node group terminate karo.
+          </div>
+          <div class="incident-box lesson">
+            <b>🎯 Interview Defense Line</b>
+            "In enterprise EKS upgrades, we audit deprecated APIs with Pluto, upgrade core add-ons first, apply control plane version bumps via Terraform, and then roll worker nodes using PDBs and graceful cordons."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOUNDATION VS FRONTIER MATRIX ================= -->
+  <div class="mapbox" id="frontier">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <h3 style="margin:0;font-size:16px;color:var(--green)">🔄 Foundation vs Frontier — Modern Architecture Comparison</h3>
+      <span style="font-size:11px;background:rgba(34,197,94,0.15);color:var(--green);border:1px solid var(--green);border-radius:12px;padding:2px 8px;font-weight:700">90% Prod vs Modern Next-Gen</span>
+    </div>
+    <p style="font-size:13px;color:var(--sub);margin-bottom:12px">
+      Aksar log sochte hain "old vs new", jabki ye <b>"Foundation (90% Production) vs Frontier (Next-Gen Optimization)"</b> hai.
+      Modern tool tabhi samajh aayega jab purani bottleneck pata ho.
+    </p>
+
+    <div class="frontier-grid">
+      <!-- Pair 1 -->
+      <div class="frontier-card">
+        <div class="frontier-top">
+          <span class="frontier-title">1. Cluster Routing</span>
+          <span style="font-size:11px;color:var(--sub)">Networking</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag old">Foundation</span>
+          <span><b>kube-proxy + iptables:</b> Linear O(N) chain evaluation. 5,000 services par packet delay & CPU spike.</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag new">Frontier</span>
+          <span><b>Cilium eBPF:</b> Kernel BPF hash-table lookup O(1). Direct socket routing, bypasses slow iptables completely.</span>
+        </div>
+      </div>
+
+      <!-- Pair 2 -->
+      <div class="frontier-card">
+        <div class="frontier-top">
+          <span class="frontier-title">2. Pod IP Networking</span>
+          <span style="font-size:11px;color:var(--sub)">VPC Latency</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag old">Foundation</span>
+          <span><b>Calico Overlay:</b> VXLAN packet-in-packet. Pod IP VPC me unroutable. ALB has to double-hop via NodePort.</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag new">Frontier</span>
+          <span><b>AWS VPC CNI (IP Mode):</b> Real secondary VPC IPs for each Pod. ALB routes directly to Pod IP without extra hop.</span>
+        </div>
+      </div>
+
+      <!-- Pair 3 -->
+      <div class="frontier-card">
+        <div class="frontier-top">
+          <span class="frontier-title">3. Pod AWS Authentication</span>
+          <span style="font-size:11px;color:var(--sub)">Security (IAM)</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag old">Foundation</span>
+          <span><b>IRSA (OIDC Provider):</b> Cluster OIDC setup required in IAM. Massive JSON trust policies with 2048-char limits.</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag new">Frontier</span>
+          <span><b>EKS Pod Identity (Nov 2023):</b> Zero OIDC providers needed. Native EKS agent daemonset directly binds IAM roles.</span>
+        </div>
+      </div>
+
+      <!-- Pair 4 -->
+      <div class="frontier-card">
+        <div class="frontier-top">
+          <span class="frontier-title">4. Ingress & Traffic Splitting</span>
+          <span style="font-size:11px;color:var(--sub)">Routing API</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag old">Foundation</span>
+          <span><b>Ingress-Nginx:</b> Basic spec. Canary routing, rate limits require messy vendor-specific annotations.</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag new">Frontier</span>
+          <span><b>Gateway API:</b> Role-oriented (GatewayClass, Gateway, HTTPRoute). Native 90/10 canary traffic splitting without annotations.</span>
+        </div>
+      </div>
+
+      <!-- Pair 5 -->
+      <div class="frontier-card">
+        <div class="frontier-top">
+          <span class="frontier-title">5. Node Autoscaling</span>
+          <span style="font-size:11px;color:var(--sub)">Compute Scaling</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag old">Foundation</span>
+          <span><b>Cluster Autoscaler:</b> Tied to EC2 Auto Scaling Groups (ASG). 3 to 5 minutes launch delay. Rigid instance types.</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag new">Frontier</span>
+          <span><b>Karpenter:</b> Group-less! Direct EC2 Fleet API. Spins up optimal right-sized instances in 40s + auto-consolidation.</span>
+        </div>
+      </div>
+
+      <!-- Pair 6 -->
+      <div class="frontier-card">
+        <div class="frontier-top">
+          <span class="frontier-title">6. Control Plane Operations</span>
+          <span style="font-size:11px;color:var(--sub)">Control Plane</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag old">Foundation</span>
+          <span><b>kubeadm / Self-Managed:</b> Manual TLS certs, etcd raft quorum, static pods. Teaches underlying mechanical plumbing.</span>
+        </div>
+        <div class="frontier-row">
+          <span class="frontier-tag new">Frontier</span>
+          <span><b>EKS Managed Control Plane:</b> AWS manages HA master nodes across 3 AZs. Black box API endpoint ($0.10/hr).</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="chapters"></div>
+
+  <div class="mapbox" id="rapid">
+    <h3>🎤 Interview Rapid-Fire — 46 one-liners, ek jagah</h3>
+    <p style="font-size:12.5px;color:var(--sub);margin:0 0 10px">Interview se pehle ye list ek baar chalao. <b>Title dekh ke PEHLE khud bolo</b>, phir click karke milao — yahi active recall hai. Jo bol nahi paye, wahi chapter kachcha hai.</p>
+    <div id="rapidlist"></div>
+  </div>
+
+  <div class="mapbox" id="drill">
+    <h3>🎲 Spaced Revision Drill — due sawaal pehle, weak chapters priority</h3>
+    <p style="font-size:12.5px;color:var(--sub);margin:0 0 10px">Bhoolne ke against system: har sawaal ka apna schedule (sahi = 1 → 3 → 7 → 14 → 30 din baad phir; galat = kal phir). Drill pehle DUE sawaal uthata, phir jo kabhi poochhe nahi, weak-marked chapters ko priority. Chapter ★ tab jab uske sab sawaal 2+ baar sahi ho chuke. Roz ek round = 3 min.</p>
+    <div class="mnode" onclick="startDrill()" style="display:inline-block;font-size:13px">▶ Drill shuru karo</div>
+    <span id="drillscore" style="margin-left:10px;font-size:13px;color:var(--sub)"></span>
+    <div id="drillinfo"></div>
+    <div id="drillbody" style="margin-top:10px"></div>
+  </div>
+
+  <div class="mapbox" style="text-align:center">
+    <h3 style="margin-bottom:6px">🏁 Sab 46 ★ ho gaye?</h3>
+    <p style="font-size:13.5px;color:var(--sub)">Ab asli test: kisi bhi chapter ka flow <b>bina dekhe</b> bol ke dikhao. Wahi teach-back level hai jo interview me chahiye.</p>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+
+  <!-- Data Layer -->
+  <script src="assets/js/data/chapters.js"></script>
+  <script src="assets/js/data/labs.js"></script>
+  <script src="assets/js/data/tracks.js"></script>
+  <script src="assets/js/data/simulators.js"></script>
+
+  <!-- Service Engines -->
+  <script src="assets/js/services/sim-engine.js"></script>
+  <script src="assets/js/services/drill-service.js"></script>
+  <script src="assets/js/services/terminal-service.js"></script>
+  <script src="assets/js/services/voice-service.js"></script>
+  <script src="assets/js/services/tracer-service.js"></script>
+
+  <!-- Core App Controller -->
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
